@@ -11,6 +11,7 @@ let buttonFalse = document.querySelector("#false");
 let buttonTrue = document.querySelector("#true");
 let ol = document.querySelector("#answered-questions");
 let yourScore = document.querySelector("#score");
+let p = document.querySelector("p");
 
 // button event listeners
 buttonFalse.addEventListener("click", handleClick);
@@ -72,7 +73,14 @@ function handleClick(event){
 }
 
 function addScore(num){
+    
+    let emoji = "&#11088";
+
     yourScore.innerText = `Your score = ${num}`;
+    // p.innerText = `${emoji}`;
+
+    
+
 }
 
 //create a fuction that creates a new list item
