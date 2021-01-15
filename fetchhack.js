@@ -13,9 +13,9 @@ buttonFalse.addEventListener("click", handleClick);
 buttonTrue.addEventListener("click", handleClick);
 
 function handleClick(event){
-    
-    console.log(event.target.id);
-    console.log(globalAnswer);
+
+    console.log(typeof event.target.id);
+    console.log(typeof globalAnswer);
     //if answer true and question true 
     if (true == true){
     //if (globalAnswer === event.target.id){
@@ -47,7 +47,7 @@ async function quizQuestions(){
     //function to remove html special characters
     question = replaceChar(question);
     
-    let answer = data.results[0].correct_answer.toLowerCase();
+    let answer = data?.results[0].correct_answer.toLowerCase();
     
     // displays question on page
     activeQuestion.innerText = question;
