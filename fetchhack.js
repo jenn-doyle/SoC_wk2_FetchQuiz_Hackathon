@@ -2,66 +2,41 @@ console.log("It's quizzing time...");
 
 // variables
 let score = 0
+let globalAnswer;
+let question;
 
 // query selectors for HTML elements
 let activeQuestion = document.querySelector("#question");
 let buttonFalse = document.querySelector("#false");
 let buttonTrue = document.querySelector("#true");
-let ol = document.querySelector("#answered questions");
+let ol = document.querySelector("#answered-questions");
 
 // button event listeners
 buttonFalse.addEventListener("click", handleClick);
 buttonTrue.addEventListener("click", handleClick);
-
-function handleClick(event){
-
-    console.log(typeof event.target.id);
-    console.log(typeof globalAnswer);
-    //if answer true and question true 
-    if (true === true || false === false){
-    //if (globalAnswer === event.target.id){
-        //increase score
-        score ++;
-    //}else if (globalAnswer != event.target.id){ 
-    //    score = score - 1;
-    }else{
-        score --;
-    }
-    console.log(`Score is ${score}`);
-
-    //call move current question to list
-    answeredQuestions();
-    //call new question   
-    quizQuestions();
-}
-        
-function answeredQuestions(){
-
-}  
-    
+         
 
 async function quizQuestions(){
     let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
     let data = await response.json();
     
-    let question = data.results[0].question;
+    question = data.results[0].question;
     //function to remove html special characters
     question = replaceChar(question);
+    //function to check for duplicate question
+    questionsInList(question)
     
-    let answer = data?.results[0].correct_answer.toLowerCase();
+    globalAnswer = data?.results[0].correct_answer.toLowerCase();
     
     // displays question on page
     activeQuestion.innerText = question;
     
     console.log(data);
     console.log(question);
-    console.log(answer);
+    console.log(globalAnswer);
 
-    return answer;
+    //return globalAnswer;
 }
-
-// Start Code
-let globalAnswer = quizQuestions();
 
 function replaceChar(string){
     return string
@@ -70,27 +45,46 @@ function replaceChar(string){
     .replace(/&#039;/g, "'");
 }
 
-
-//create a fuction that creates a new list item
-    /*function createQuestionList(question){
-    let li = document.createElement("li");
-    li.innerText = question;
-    ol.appendChild(li);
+function handleClick(event){
+    console.log(event.target.id + "target given");
+    console.log(globalAnswer);
+    console.log(typeof event.target.id);
+    console.log(typeof globalAnswer);
+    //if answer true and question true 
+    if (globalAnswer == event.target.id){
+        //increase score
+        score ++;
+    //}else if (globalAnswer != event.target.id){ 
+    //    score = score - 1;
+    }else{
+        score --;
+    }
+    console.log(`Score is ${score}`);
+    //call move current question to list
+    console.log(question);
+    createQuestionList(question);
+    //call new question   
+    quizQuestions();
 }
 
 
+//create a fuction that creates a new list item
+function createQuestionList(question){
+    let li = document.createElement("li");
+    li.innerText = question;
+    console.log(question);
+    ol.appendChild(li);
+    
+}
 
 function questionsInList(questionIn){
-    
-    //quotes are in li elements, collect them all!
+    //questions are in li elements, collect them all!
     let listLi = document.querySelectorAll("li");
-    
     // itterate over the list of li elements.
     for (let i = 0; i < listLi.length; i++){
-        
         console.log(questionIn);
         console.log(listLi[i].innerText);
-        //find repeated quotes
+        //find repeated questions
         if (questionIn === listLi[i].innerText){
             console.log("WHY!!");
             return false;
@@ -99,6 +93,9 @@ function questionsInList(questionIn){
     // if no matches are found return true
     return true
 }
+
+// Start Code
+quizQuestions();
 
 // Daily Quiz web page.
 
