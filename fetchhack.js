@@ -7,6 +7,7 @@ let score = 0
 let activeQuestion = document.querySelector("#question");
 let buttonFalse = document.querySelector("#false");
 let buttonTrue = document.querySelector("#true");
+let ol = document.querySelector("#answered questions");
 
 // button event listeners
 buttonFalse.addEventListener("click", handleClick);
@@ -17,12 +18,14 @@ function handleClick(event){
     console.log(event.target.id);
     console.log(globalAnswer);
     //if answer true and question true 
-    if (true == true){
+    if (true === true || false === false){
     //if (globalAnswer === event.target.id){
         //increase score
-        score = score + 1;
+        score ++;
     //}else if (globalAnswer != event.target.id){ 
     //    score = score - 1;
+    }else{
+        score --;
     }
     console.log(`Score is ${score}`);
 
@@ -36,8 +39,6 @@ function answeredQuestions(){
 
 }  
     
-    
-
 
 async function quizQuestions(){
     let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
@@ -67,6 +68,36 @@ function replaceChar(string){
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'");
+}
+
+
+//create a fuction that creates a new list item
+    /*function createQuestionList(question){
+    let li = document.createElement("li");
+    li.innerText = question;
+    ol.appendChild(li);
+}
+
+
+
+function questionsInList(questionIn){
+    
+    //quotes are in li elements, collect them all!
+    let listLi = document.querySelectorAll("li");
+    
+    // itterate over the list of li elements.
+    for (let i = 0; i < listLi.length; i++){
+        
+        console.log(questionIn);
+        console.log(listLi[i].innerText);
+        //find repeated quotes
+        if (questionIn === listLi[i].innerText){
+            console.log("WHY!!");
+            return false;
+        }
+    }
+    // if no matches are found return true
+    return true
 }
 
 // Daily Quiz web page.
