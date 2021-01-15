@@ -1,5 +1,8 @@
 console.log("It's quizzing time...");
 
+// variables
+let score = 0
+
 // query selectors for HTML elements
 let activeQuestion = document.querySelector("#question");
 let buttonFalse = document.querySelector("#false");
@@ -10,16 +13,31 @@ buttonFalse.addEventListener("click", handleClick);
 buttonTrue.addEventListener("click", handleClick);
 
 function handleClick(event){
-    //if answer true and question true 
+    
     console.log(event.target.id);
-    //increase score
-    //ask new question
-    //if answer true and question false 
-    //decrease score
-    //ask new question
     console.log(globalAnswer);
+    //if answer true and question true 
+    if (true == true){
+    //if (globalAnswer === event.target.id){
+        //increase score
+        score = score + 1;
+    //}else if (globalAnswer != event.target.id){ 
+    //    score = score - 1;
+    }
+    console.log(`Score is ${score}`);
+
+    //call move current question to list
+    answeredQuestions();
+    //call new question   
+    quizQuestions();
 }
-//handleClick();
+        
+function answeredQuestions(){
+
+}  
+    
+    
+
 
 async function quizQuestions(){
     let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
