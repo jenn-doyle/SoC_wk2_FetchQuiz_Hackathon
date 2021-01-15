@@ -2,9 +2,26 @@ console.log("It's quizzing time...");
 
 // query selectors for HTML elements
 let activeQuestion = document.querySelector("#question");
-let buttonFalse = document.querySelector()
+let buttonFalse = document.querySelector("#false");
+let buttonTrue = document.querySelector("#true");
 
-async function sendFetch(){
+// button event listeners
+buttonFalse.addEventListener("click", handleClick);
+buttonTrue.addEventListener("click", handleClick);
+
+function handleClick(event){
+    //if answer true and question true 
+    console.log(event.target.id);
+    //increase score
+    //ask new question
+    //if answer true and question false 
+    //decrease score
+    //ask new question
+    console.log(globalAnswer);
+}
+//handleClick();
+
+async function quizQuestions(){
     let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
     let data = await response.json();
     
@@ -12,7 +29,7 @@ async function sendFetch(){
     //function to remove html special characters
     question = replaceChar(question);
     
-    let answer = data.results[0].correct_answer;
+    let answer = data.results[0].correct_answer.toLowerCase();
     
     // displays question on page
     activeQuestion.innerText = question;
@@ -20,11 +37,12 @@ async function sendFetch(){
     console.log(data);
     console.log(question);
     console.log(answer);
+
+    return answer;
 }
 
 // Start Code
-sendFetch();
-
+let globalAnswer = quizQuestions();
 
 function replaceChar(string){
     return string
