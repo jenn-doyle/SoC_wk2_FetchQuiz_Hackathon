@@ -23,8 +23,11 @@ async function quizQuestions(){
     question = data.results[0].question;
     //function to remove html special characters
     question = replaceChar(question);
+    
     //function to check for duplicate question
-    questionsInList(question)
+    if (questionsInList(question) === true){
+        return ();
+    }
     
     globalAnswer = data?.results[0].correct_answer.toLowerCase();
     
@@ -57,7 +60,9 @@ function handleClick(event){
     //}else if (globalAnswer != event.target.id){ 
     //    score = score - 1;
     }else{
-        score --;
+        if (score != 0){
+            score --;
+        }
     }
     console.log(`Score is ${score}`);
     //call move current question to list
@@ -95,6 +100,7 @@ function questionsInList(questionIn){
 }
 
 // Start Code
+
 quizQuestions();
 
 // Daily Quiz web page.
