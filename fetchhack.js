@@ -1,13 +1,28 @@
 console.log("It's quizzing time...");
 
+let activeQuestion = document.querySelector("#question");
+
+
 async function sendFetch(){
-    let response = await fetch("https://opentdb.com/api.php?amount=2&category=11&difficulty=easy&type=boolean");
+    let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
     let data = await response.json();
     let question = data.results[0].question;
+    //function to remove html special characters
+    question = replaceChar(question);
+    let answer = data.results[0].correct_answer;
+    activeQuestion.innerText = question;
     console.log(data);
     console.log(question);
+    console.log(answer);
 }
 sendFetch();
+
+function replaceChar(string){
+    return string
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'");
+}
 
 // Daily Quiz web page.
 
