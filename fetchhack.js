@@ -10,6 +10,7 @@ let activeQuestion = document.querySelector("#question");
 let buttonFalse = document.querySelector("#false");
 let buttonTrue = document.querySelector("#true");
 let ol = document.querySelector("#answered-questions");
+let yourScore = document.querySelector("#score");
 
 // button event listeners
 buttonFalse.addEventListener("click", handleClick);
@@ -25,10 +26,7 @@ async function quizQuestions(){
     question = replaceChar(question);
     
     //function to check for duplicate question
-    if (questionsInList(question) === true){
-        return ();
-    }
-    
+       
     globalAnswer = data?.results[0].correct_answer.toLowerCase();
     
     // displays question on page
@@ -64,6 +62,7 @@ function handleClick(event){
             score --;
         }
     }
+    addScore(score);
     console.log(`Score is ${score}`);
     //call move current question to list
     console.log(question);
@@ -72,6 +71,9 @@ function handleClick(event){
     quizQuestions();
 }
 
+function addScore(num){
+    yourScore.innerText = `Your score = ${num}`;
+}
 
 //create a fuction that creates a new list item
 function createQuestionList(question){
