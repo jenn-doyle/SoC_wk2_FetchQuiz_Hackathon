@@ -1,21 +1,30 @@
 console.log("It's quizzing time...");
 
+// query selectors for HTML elements
 let activeQuestion = document.querySelector("#question");
-
+let buttonFalse = document.querySelector()
 
 async function sendFetch(){
     let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
     let data = await response.json();
+    
     let question = data.results[0].question;
     //function to remove html special characters
     question = replaceChar(question);
+    
     let answer = data.results[0].correct_answer;
+    
+    // displays question on page
     activeQuestion.innerText = question;
+    
     console.log(data);
     console.log(question);
     console.log(answer);
 }
+
+// Start Code
 sendFetch();
+
 
 function replaceChar(string){
     return string
