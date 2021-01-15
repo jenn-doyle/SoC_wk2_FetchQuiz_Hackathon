@@ -1,7 +1,11 @@
+console.log("It's quizzing time...");
+
 async function sendFetch(){
-    let response = await fetch("https://opentdb.com/api.php?amount=10");
+    let response = await fetch("https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=boolean");
     let data = await response.json();
+    let question = data.results.0.questions;
     console.log(data);
+    console.log(question);
 }
 sendFetch();
 
